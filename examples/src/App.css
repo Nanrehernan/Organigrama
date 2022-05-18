@@ -17,6 +17,10 @@ body {
   width: 100%;
   background-color: #f7f9fa;
 }
+
+.organigrama{
+  position: relative
+}
 .org-chart-person-name {
   font-weight: 500;
 }
