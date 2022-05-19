@@ -29,7 +29,7 @@ export default class Organigrama extends Component {
             id: persona.id,
             person: {
                 avatar: avatarPersonnel,
-                department: persona.department,
+                departament: persona.departament,
                 name: persona.name,
                 title: persona.title,
                 totalReports: this.getTotalReport(persona.id),
@@ -53,7 +53,7 @@ export default class Organigrama extends Component {
                         id: p.id,
                         person: {
                             avatar: avatarPersonnel,
-                            department: p.departament,
+                            departament: p.departament,
                             name: p.name,
                             title: p.title,
                             totalReports: this.getTotalReport(p.id),
@@ -100,7 +100,6 @@ export default class Organigrama extends Component {
 
     componentDidUpdate(props, state) {
         if (this.props !== props) {
-            console.log(this.props.cargar)
             this.setState({
                 tree: this.getNodoPrincipal(),
                 cargar: this.props.cargar

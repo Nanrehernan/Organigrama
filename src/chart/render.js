@@ -10,6 +10,7 @@ const CHART_NODE_CLASS = 'org-chart-node'
 const PERSON_LINK_CLASS = 'org-chart-person-link'
 const PERSON_NAME_CLASS = 'org-chart-person-name'
 const PERSON_TITLE_CLASS = 'org-chart-person-title'
+const PERSON_DEPARTAMENT_CLASS = 'org-chart-person-departament'
 const PERSON_HIGHLIGHT = 'org-chart-person-highlight'
 const PERSON_REPORTS_CLASS = 'org-chart-person-reports'
 
@@ -50,7 +51,7 @@ function render(config) {
   config.nodes = nodes
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) {
+  nodes.forEach(function (d) {
     d.y = d.depth * lineDepthY
   })
 
@@ -134,12 +135,24 @@ function render(config) {
     .append('text')
     .attr('class', PERSON_TITLE_CLASS + ' unedited')
     .attr('x', nodeWidth / 2)
-    .attr('y', namePos.y + nodePaddingY * 2.4)
+    .attr('y', namePos.y + nodePaddingY * 2)
     .attr('dy', '0.1em')
     .style('font-size', 12)
     .style('cursor', 'pointer')
     .style('fill', titleColor)
     .text(d => d.person.title)
+
+  // Person's Departament
+  nodeEnter
+    .append('text')
+    .attr('class', PERSON_TITLE_CLASS + ' unedited')
+    .attr('x', nodeWidth / 2)
+    .attr('y', namePos.y + nodePaddingY * 3.5)
+    .attr('dy', '0.1em')
+    .style('font-size', 12)
+    .style('cursor', 'pointer')
+    .style('fill', titleColor)
+    .text(d => d.person.departament)
 
   const heightForTitle = 60 // getHeightForText(d.person.title)
 
@@ -169,13 +182,13 @@ function render(config) {
       d.person.hasImage
         ? d.person.avatar
         : loadImage(d).then(res => {
-            covertImageToBase64(res, function(dataUrl) {
-              d3.select(`#image-${d.id}`).attr('href', dataUrl)
-              d.person.avatar = dataUrl
-            })
-            d.person.hasImage = true
-            return d.person.avatar
+          covertImageToBase64(res, function (dataUrl) {
+            d3.select(`#image-${d.id}`).attr('href', dataUrl)
+            d.person.avatar = dataUrl
           })
+          d.person.hasImage = true
+          return d.person.avatar
+        })
     })
     .attr('src', d => d.person.avatar)
     .attr('href', d => d.person.avatar)
@@ -232,7 +245,7 @@ function render(config) {
   renderLines(config)
 
   // Stash the old positions for transition.
-  nodes.forEach(function(d) {
+  nodes.forEach(function (d) {
     d.x0 = d.x
     d.y0 = d.y
   })
@@ -250,11 +263,11 @@ function render(config) {
   config.nodeY = nodeY
   config.nodeLeftX = nodeLeftX * -1
 
-  d3.select(downloadImageId).on('click', function() {
+  d3.select(downloadImageId).on('click', function () {
     exportOrgChartImage(config)
   })
 
-  d3.select(downloadPdfId).on('click', function() {
+  d3.select(downloadPdfId).on('click', function () {
     exportOrgChartPdf(config)
   })
   onConfigChange(config)

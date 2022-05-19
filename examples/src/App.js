@@ -15,8 +15,8 @@ export default class App extends Component {
             file: undefined,
             cargar: true,
             datos: [
-                { id: 1, name: "Datos", departament: "", title: "", idParent: 1 },
-                { id: 2, name: "Organigrama", departament: "", title: "", idParent: 1 }
+                { id: 1, name: "Datos", departament: "CEO", title: "Empresa", idParent: 1 },
+                { id: 2, name: "Organigrama", departament: "RRHH", title: "Empresa", idParent: 1 }
             ]
         };
     }
